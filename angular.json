@@ -17,6 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "rxjs-compat",
+              "sockjs-client"
+            ],
             "outputPath": "dist/chat-app",
             "index": "src/index.html",
             "main": "src/main.ts",
