@@ -34,6 +34,13 @@ export class ChatComponent implements OnInit {
         this.mensajes.push(mensaje);
         console.log(mensaje);
       });
+
+      this.mensaje.tipo = 'USUARIO_NUEVO';
+      this.client.publish({
+        destination: '/app/mensaje',
+        body: JSON.stringify(this.mensaje)
+      });
+
     }
 
     this.client.onDisconnect = (frame) => {
@@ -43,6 +50,8 @@ export class ChatComponent implements OnInit {
   }
 
   conectar(): void{
+    if (this.mensaje.username.trim() == '')
+      return;
     this.client.activate();
   }
 
@@ -53,6 +62,7 @@ export class ChatComponent implements OnInit {
   enviarMensaje(): void{
     if (this.mensaje.texto.trim() == '')
       return;
+      this.mensaje.tipo = 'MENSAJE';
     this.client.publish({
       destination: '/app/mensaje',
       body: JSON.stringify(this.mensaje)
