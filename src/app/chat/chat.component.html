@@ -48,10 +48,14 @@
       <div class="form-group mx-3">
         <input type="text" [(ngModel)]="mensaje.texto" class="form-control"
           placeholder="Escribe un mensaje..." name="texto"
+          (keyup)="escribiendoEvento()"
           (keyup.enter)="enviarMensaje()">
       </div>
       <button class="btn btn-primary" type="button" (click)="enviarMensaje()">Enviar</button>
     </form>
+    <div>
+      {{ escribiendo}}
+    </div>
   </div>
 
 </div>
