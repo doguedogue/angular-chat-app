@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { Mensaje } from './model/mensaje';
@@ -9,6 +9,8 @@ import { Mensaje } from './model/mensaje';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('scrollChat') comment: ElementRef;
+  scrolltop:number = 0;
 
   private client: Client;
   public conectado: boolean = false;
@@ -41,6 +43,13 @@ export class ChatComponent implements OnInit {
         }
 
         this.mensajes.push(mensaje);
+
+        setTimeout(()=>{
+          if(this.comment !== undefined){
+              this.scrolltop = this.comment.nativeElement.scrollHeight;
+          }
+        },100);
+
         console.log(mensaje);
       });
 
